@@ -55,14 +55,16 @@ public class uploadDocument extends HttpServlet {
         System.out.println(id);
         //get id 
         // create folder 
+       // C:\Users\newuser\Dropbox\documents
+       //C:\\NetBeans\\Raman\\image\\
         
-         File dir = new File("C:\\NetBeans\\Raman\\image\\" + id);
+         File dir = new File("C:\\Users\\newuser\\Dropbox\\documents\\" + id);
     
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
             
-        final String path = "C:\\NetBeans\\Raman\\image\\" + id;
+        final String path = "C:\\Users\\newuser\\Dropbox\\documents\\" + id;
         
         
        // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);

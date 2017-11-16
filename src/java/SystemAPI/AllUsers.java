@@ -66,6 +66,8 @@ public class AllUsers extends HttpServlet {
                     }
                     //System.out.println(carray[i]);
                     carray[50] = rs.getString("column_count");
+                     carray[51] = rs.getString("document");
+                    
                 }
             }
             String query1 = "select * from register where id=2 ";
@@ -84,6 +86,7 @@ public class AllUsers extends HttpServlet {
                     }
                     System.out.println(darray[i]);
                     darray[50] = rs11.getString("column_count");
+                      darray[51] = rs11.getString("document");
                 }
             }
             String roll = null;
@@ -150,6 +153,7 @@ public class AllUsers extends HttpServlet {
                 a1.c31 = carray[32] + " : " + rs.getString(33) + " :" + darray[32];
 
                 a1.c50 = carray[50];
+                a1.c51 = carray[51] + " : " + rs.getString("document") + " :" + darray[51];
 
                 a.add(a1);
             }
@@ -220,6 +224,6 @@ public class AllUsers extends HttpServlet {
     private String c14;
     private String c15;
     private String c16;
-    private String c17, c20, c18, c19,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30,c31,c32,c33,c34,c50;
+    private String c17, c20, c18, c19,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30,c31,c32,c33,c34,c50,c51;
 
 }
