@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.Util;
+package SystemAPI;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,29 +14,10 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sakshamapp123
+ * @author panel2
  */
-public class Util extends HttpServlet {
-static final String URL="jdbc:mysql://localhost:3306/";
-	
-	static final String DATABASE_NAME="ramanapp";
-       static final String USERNAME="ramanapp";
-	static final String PASSWORD="1234";
-        //static final String DATABASE_NAME="ramantesting";
-       //static final String USERNAME="root";
-	//static final String PASSWORD="This1234";
-         static final String useUnicode="yes";
-        static final String characterEncoding="UTF-8";
-        
-	
-	public static Connection getConnection() throws Exception {
-		
-		Class.forName("com.mysql.jdbc.Driver");  
-		//Connection con=DriverManager.getConnection(URL+DATABASE_NAME,USERNAME,PASSWORD); 
-                Connection con=DriverManager.getConnection(URL+DATABASE_NAME,USERNAME,PASSWORD); 
-		return con;
-		
-	}
+public class test extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -52,14 +31,25 @@ static final String URL="jdbc:mysql://localhost:3306/";
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
+           String myparam=request.getParameter("username" );
+           
+           out.println(myparam);
+         myparam=  "à¤«à¤ à¤¡";
+           if (myparam != null)
+   myparam = new String(myparam.getBytes("8859_1"),"UTF8");
+           
+           char c;
+
+    for (c = 2309; c < 2360; c++)
+     System.out.print(c);
+            out.println(myparam);
+            System.out.println(myparam);
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Util</title>");            
+            out.println("<title>Servlet test</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet Util at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet test at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }

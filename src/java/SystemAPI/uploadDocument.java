@@ -58,13 +58,13 @@ public class uploadDocument extends HttpServlet {
        // C:\Users\newuser\Dropbox\documents
        //C:\\NetBeans\\Raman\\image\\
         
-         File dir = new File("C:\\Users\\newuser\\Dropbox\\documents\\" + id);
+         File dir = new File("C:\\Users\\panel2\\Dropbox\\documents\\" + id);
     
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
             
-        final String path = "C:\\Users\\newuser\\Dropbox\\documents\\" + id;
+        final String path = "C:\\Users\\panel2\\Dropbox\\documents\\" + id;
         
         
        // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);
@@ -111,8 +111,8 @@ public class uploadDocument extends HttpServlet {
                 o.write(bytes, 0, read);
             }
             System.out.println("New file " + fileName + " created at " + path);
-
-            String query = "update register set document='" + fileName + "' where id='" + id + "' ";
+                //col1name = concat(col1name, 'a,b,c');
+            String query = "update register set document=concat(document, '," + fileName + "') where id='" + id + "' ";
 
             System.out.println(query);
             int i = st.executeUpdate(query);

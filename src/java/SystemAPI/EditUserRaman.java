@@ -32,31 +32,71 @@ public class EditUserRaman extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");       
+        System.out.println("EditUserRaman");
+        response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-        try{
-         Connection con = Util.getConnection();
+        try {
+            Connection con = Util.getConnection();
             Statement st = con.createStatement();
-           String a[]=new String[50];
-                   a= request.getParameterValues("a");
-String b[]=new String[50];
+            
+            
+            
+               String api_id = request.getPathInfo() ;
+             System.out.print("susheel kumar "+api_id);
+             
+             
+             String pathInfo = request.getPathInfo();
+String pathTrans = request.getPathTranslated();
+String uri = request.getRequestURI();
 
-             String id = request.getParameter("id").trim();
+System.err.println("pathInfo:  " + pathInfo);
+System.err.println("pathTrans: " + pathTrans);
+System.err.println("uri:       " + uri);
+
+
+             
+             
+             
+            String a[] = new String[50];
+          
+            
+            a = request.getParameterValues("a");
+            String ab=request.getParameter("ab");
+             System.out.println(ab + "46");
+               if (ab != null)
+   ab = new String(ab.getBytes("8859_1"),"UTF8");
+                System.out.println(ab + "49");
+             //  if (a != null)
+                   
+ //  a = new String[](a.getBytes("8859_1"),"UTF8");
+            
+            
+            String b[] = new String[50];
+
+            String id = request.getParameter("id").trim();
 
             int count = Integer.parseInt(request.getParameter("count").trim());
+
+            String c3, c4, c5, c6, c7, c8, c9, c10, c11, c12, c13, c14, c15, c16, c17, c18, c19, c20, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30;
+           
             
-            String c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30;
-            for(int i=0;i<50;i++){
-               if(i<count){
-                   b[i]=a[i].trim();
-               }
-               else{
-                   b[i]=null;
-               }
-                System.out.println(b[i]);
+            for (int i = 0; i < 50; i++) {
+                if (i < count) {
+                  // b[i] = a[i].trim();
+                  b[i] = a[i];
+                    //System.out.println(b[i] + "54");
+                    if (b[i] != null) {
+                        b[i] = new String(b[i].getBytes("8859_1"), "UTF8");
+                    }
+                  //  System.out.println(b[i] + "55");
+
+                } else {
+                    b[i] = null;
+                }
+               // System.out.println(b[i]);
             }
-            
+
             String query = "update register set c3='" + b[0] + "'  , c4='" + b[1] + "', c5='" + b[2] + "', c6='" + b[3] + "'"
                     + ", c7='" + b[4] + "', c8='" + b[5] + "', c9='" + b[6] + "', c10='" + b[7] + "', c11='" + b[8] + "',"
                     + " c12='" + b[9] + "', c13='" + b[10] + "', c14='" + b[11] + "', c15='" + b[12] + "', c16='" + b[13] + "', c"
@@ -70,18 +110,14 @@ String b[]=new String[50];
 
             if (i > 0) {
                 request.setAttribute("msg", "Your Details updated Successfully!!");
-               
-               
-                 out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  }");
-          
+
+                out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  }");
+
             } else {
                 request.setAttribute("msg", "Your Details  are Invalid!!");
-                 out.println("{\"Error\": \"False\" ,\"Message\": \"Success\" }");
-               
-            }
+                out.println("{\"Error\": \"False\" ,\"Message\": \"Success\" }");
 
-            
- 
+            }
 
         } catch (Exception e) {
             out.println("{\"Error\": \"True\" ,\"Message\": \"Request Failed\"  }");
@@ -89,6 +125,7 @@ String b[]=new String[50];
         }
 
     }
+
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
