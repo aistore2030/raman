@@ -57,10 +57,13 @@
         <servlet-class>SystemAPI.test</servlet-class>
     </servlet>
     <servlet>
+<<<<<<< HEAD
         <servlet-name>SaveDocument</servlet-name>
         <servlet-class>SystemAPI.SaveDocument</servlet-class>
     </servlet>
     <servlet>
+=======
+>>>>>>> 0a787a1a6f07853b771741643cd889e37b7e9d44
         <servlet-name>EditUserNew</servlet-name>
         <servlet-class>SystemAPI.EditUserNew</servlet-class>
     </servlet>
@@ -121,10 +124,13 @@
         <url-pattern>/test</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
         <servlet-name>SaveDocument</servlet-name>
         <url-pattern>/SaveDocument</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+=======
+>>>>>>> 0a787a1a6f07853b771741643cd889e37b7e9d44
         <servlet-name>EditUserNew</servlet-name>
         <url-pattern>/EditUserNew</url-pattern>
     </servlet-mapping>
