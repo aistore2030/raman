@@ -3,41 +3,22 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.Util;
+package SystemAPI;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.DriverManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import com.oreilly.servlet.MultipartRequest;
 
 /**
  *
- * @author sakshamapp123
+ * @author Saksham
  */
-public class Util extends HttpServlet {
-
-    static final String URL = "jdbc:mysql://localhost:3306/";
-
-    static final String DATABASE_NAME = "ramanapp";
-    static final String USERNAME = "ramanapp";
-    ///static final String PASSWORD="1234";
-    static final String PASSWORD = "paI9!@#$%ykdpRsmHl";
-
-    public static Connection getConnection() throws Exception {
-
-        Class.forName("com.mysql.jdbc.Driver");
-        //  String strConnectionURL = "jdbc:mysql://localhost:3306/ramanapp?user=ramanapp&password=zaI4!@#$%dkdkTsmHw";
-        // String strConnectionURL = "jdbc:mysql://localhost:3306/ramanapp?useUnicode=yes&characterEncoding=UTF-8&user=ramanapp&password=1234";
-        Connection con = DriverManager.getConnection(URL + DATABASE_NAME, USERNAME, PASSWORD);
-
-        // Connection con=DriverManager.getConnection(strConnectionURL); 
-        return con;
-
-    }
+public class SaveDocument extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,21 +29,31 @@ public class Util extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Util</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Util at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        PrintWriter out = response.getWriter();
+        //  MultipartRequest m = new MultipartRequest(request, "C:\\Users\\mala singh\\Documents\\NetBeansProjects\\adminpapafast2.5\\upload\\");
+        out.print("successfully uploaded");
+        //   String username = String.valueOf(session.getAttribute("username")).trim();
+        
+        String username = String.valueOf(request.getParameter("username"));
+
+        File directory = new File("C:\\Users\\Saksham\\Documents\\img\\" + username);
+        if (!directory.exists()) {
+            //let's try to create it
+            try {
+                directory.mkdir();
+            } catch (SecurityException secEx) {
+                //handle the exception
+                secEx.printStackTrace(System.out);
+                directory = null;
+            }
+            
         }
+        MultipartRequest    m = new MultipartRequest(request, "C:\\Users\\mala singh\\Documents\\NetBeansProjects\\adminpapafast2.5\\upload\\" + username);
+         out.print("successfully uploaded");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

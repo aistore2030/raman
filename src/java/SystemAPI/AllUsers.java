@@ -15,6 +15,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -51,35 +54,40 @@ public class AllUsers extends HttpServlet {
             String query = "select * from register limit 1 ";
 
             System.out.println(query);
-            ResultSet rs = st.executeQuery(query);
+            ResultSet rs1 = st.executeQuery(query);
             String[] carray = new String[500];
- int column_count =0;
-            while (rs.next()) {
-                 column_count = Integer.parseInt(rs.getString("column_count").trim());
+            int column_count = 0;
+            while (rs1.next()) {
+                column_count = Integer.parseInt(rs1.getString("column_count").trim());
                 System.out.println(column_count);
                 for (int i = 0; i < column_count + 4; i++) {
 
                     if (i == 0) {
                         carray[i] = "id";
                     } else {
-                        carray[i] = rs.getString(i + 1);
+                        carray[i] = rs1.getString(i + 1);
                     }
                     //System.out.println(carray[i]);
-                    carray[50] = rs.getString("column_count");
-                     carray[51] = rs.getString("document");
+                    carray[50] = rs1.getString("column_count");
+                    carray[51] = rs1.getString("document");
+                   // carray[52] = rs1.getString("status");
                     
+
                 }
             }
-           String roll="";
+            String roll = "";
             String username = request.getParameter("username");
             System.out.print(username);
+           
             String q = "select * from register where c1='" + username + "'";
             System.out.print(q);
-            ResultSet rs1 = st.executeQuery(q);
-            while (rs1.next()) {
-                roll = rs1.getString("roll");
+            ResultSet rs2 = st.executeQuery(q);
+            while (rs2.next()) {
+                roll = rs2.getString("roll");
             }
             System.out.println(roll);
+          
+            
             query = "select * from register where id in (" + roll + ")  ";
             System.out.print(query);
             ArrayList rData = new ArrayList();
@@ -88,7 +96,7 @@ public class AllUsers extends HttpServlet {
             System.out.print(57);
             int i = 0;
             //  out.println(query);
-            rs = st.executeQuery(query);
+            ResultSet rs = st.executeQuery(query);
             System.out.print(61);
             ArrayList<AllUsers> a = new ArrayList<>();
             while (rs.next()) {
@@ -99,41 +107,43 @@ public class AllUsers extends HttpServlet {
                 //  a1.c1 = carray[1] + " : " + rs.getString(2);
                 a1.c1 = rs.getString(3);
                 a1.c2 = rs.getString(4);
-                a1.c3 =rs.getString(5);
-                a1.c4 =rs.getString(6);
-                a1.c5 =rs.getString(7);
-                a1.c6 = rs.getString(8) ;
+                a1.c3 = rs.getString(5);
+                a1.c4 = rs.getString(6);
+                a1.c5 = rs.getString(7);
+                a1.c6 = rs.getString(8);
                 a1.c7 = rs.getString(9);
-                a1.c8 =  rs.getString(10);
-                a1.c9 =  rs.getString(11);
-                a1.c10 =  rs.getString(12);
-                a1.c11 =  rs.getString(13);
+                a1.c8 = rs.getString(10);
+                a1.c9 = rs.getString(11);
+                a1.c10 = rs.getString(12);
+                a1.c11 = rs.getString(13);
                 a1.c12 = rs.getString(14);
-                a1.c13 =  rs.getString(15);
-                a1.c14 =  rs.getString(16);
-                a1.c15 =  rs.getString(17);
-                a1.c16 =  rs.getString(18);
-                a1.c17 =  rs.getString(19);
-                a1.c18 =  rs.getString(20);
+                a1.c13 = rs.getString(15);
+                a1.c14 = rs.getString(16);
+                a1.c15 = rs.getString(17);
+                a1.c16 = rs.getString(18);
+                a1.c17 = rs.getString(19);
+                a1.c18 = rs.getString(20);
                 a1.c19 = rs.getString(21);
-                a1.c20 =  rs.getString(22);
-                a1.c21 =  rs.getString(23);
-                a1.c22 =  rs.getString(24);
+                a1.c20 = rs.getString(22);
+                a1.c21 = rs.getString(23);
+                a1.c22 = rs.getString(24);
 
-                a1.c23 =  rs.getString(25);
-                a1.c24 =  rs.getString(26);
-                a1.c25 =  rs.getString(27);
-                a1.c26 =  rs.getString(28);
-                a1.c27 =  rs.getString(29);
-                a1.c28 =  rs.getString(30);
-                a1.c29 =  rs.getString(31);
+                a1.c23 = rs.getString(25);
+                a1.c24 = rs.getString(26);
+                a1.c25 = rs.getString(27);
+                a1.c26 = rs.getString(28);
+                a1.c27 = rs.getString(29);
+                a1.c28 = rs.getString(30);
+                a1.c29 = rs.getString(31);
 
-                a1.c30 =  rs.getString(32);
-                a1.c31 =  rs.getString(33);
+                a1.c30 = rs.getString(32);
+                a1.c31 = rs.getString(33);
 
                 a1.c50 = carray[50];
-                a1.c51 =  rs.getString("document");
-
+                a1.c51 = rs.getString("document");
+                 a1.c53 = rs.getString("status");
+ //a1.c52 = GetAllColumn(  con, st );
+ a1.c52 = GetAllColumn( );
                 a.add(a1);
             }
             Gson gson = new GsonBuilder().create();
@@ -185,7 +195,68 @@ public class AllUsers extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    private String c0;
+    
+    public String GetAllColumn() throws SQLException
+    {
+          Connection con1 = null;
+        Statement st1 = null;
+        try {
+            con1 = Util.getConnection();
+        } catch (Exception ex) {
+            Logger.getLogger(AllUsers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+            st1 = con1.createStatement();
+           String query = "select * from register limit 1 ";
+
+            System.out.println(query);
+            ResultSet rs3 = st1.executeQuery(query);
+            String[] carray = new String[60];
+            int column_count = 0;
+            while (rs3.next()) {
+                column_count = Integer.parseInt(rs3.getString("column_count").trim());
+                System.out.println(column_count);
+                for (int i = 0; i < column_count + 4; i++) {
+
+                    if (i == 0) {
+                        carray[i] = "id";
+                    } else {
+                        carray[i] = rs3.getString(i + 1);
+                    }
+                    //System.out.println(carray[i]);
+                    carray[50] = rs3.getString("column_count");
+                    carray[51] = rs3.getString("document");
+
+                }
+            }
+            String query1 = "select * from register where id=2 ";
+
+            System.out.println(query1);
+            ResultSet rs4 = st1.executeQuery(query1);
+            String[] darray = new String[60];
+
+            while (rs4.next()) {
+                for (int i = 0; i < column_count + 4; i++) {
+
+                    if (i == 0) {
+                        darray[i] = "number";
+                    } else {
+                        darray[i] = rs4.getString(i + 1);
+                    }
+                    //   System.out.println(darray[i]);
+                    darray[50] = rs4.getString("column_count");
+                    darray[51] = rs4.getString("document");
+                }
+            } 
+ 
+            String carrayCombine = Arrays.toString(carray);
+
+            String darrayCombine = Arrays.toString(darray);
+
+             return carrayCombine + "#" + darrayCombine;
+            
+    }
+    private String a0;
+     private String c0;
     private String c1;
     private String c2;
     private String c3;
@@ -203,6 +274,6 @@ public class AllUsers extends HttpServlet {
     private String c14;
     private String c15;
     private String c16;
-    private String c17, c20, c18, c19,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30,c31,c32,c33,c34,c50,c51;
-
+    private String c17, c20, c18, c19, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c50, c51;
+ private String c52,c53;
 }

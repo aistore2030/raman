@@ -17,9 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sakshamapp123
+ * @author Saksham
  */
-public class EditUser extends HttpServlet {
+public class EditUserNew extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -32,49 +32,64 @@ public class EditUser extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("application/json");
-        response.setCharacterEncoding("UTF-8");
+        System.out.println("EditUserNew");
+         response.setContentType("application/json");
+        response.setCharacterEncoding("UTF-8");       
         PrintWriter out = response.getWriter();
-        try {
-            Connection con = Util.getConnection();
+        try{
+         Connection con = Util.getConnection();
             Statement st = con.createStatement();
-
-            String id = request.getParameter("c0").trim();
-
-            String c3 = request.getParameter("c3").trim();
-
-            String c4 = request.getParameter("c4").trim();
-
-            String c5 = request.getParameter("c5").trim();
-            String c6 = request.getParameter("c6").trim();
-            String c7 = request.getParameter("c7").trim();
-            String c8 = request.getParameter("c8").trim();
-            String c9 = request.getParameter("c9").trim();
-            String c10 = request.getParameter("c10").trim();
-            String c11 = request.getParameter("c11").trim();
-            String c12 = request.getParameter("c12").trim();
-            String c13 = request.getParameter("c13").trim();
-//String c14 = request.getParameter("c14").trim();
-
-//String c5 = request.getParameter("c5");
-            String query = "update register set c3='" + c3 + "'  , c4='" + c4 + "', c5='" + c5 + "', c6='" + c6 + "', c7='" + c7 + "', c8='" + c8 + "', c9='" + c9 + "', c10='" + c10 + "', c11='" + c11 + "', c12='" + c12 + "', c13='" + c13 + "' where id=" + id + "  ";
+          // String a[]=new String[50];
+             String a=request.getParameter("a").trim();
+               //      a= request.getParameterValues("a");
+String b[]=new String[50];
+   System.out.println(a);
+             String id = request.getParameter("id").trim();
+             String ab = request.getParameter("ab");
+                String st1 = request.getParameter("st");
+int j=0;
+            int count = Integer.parseInt(request.getParameter("count").trim());
+              // System.out.println(count);
+            String c3,c4,c5,c6,c7,c8,c9,c10,c11,c12,c13,c14,c15,c16,c17,c18,c19,c20,c21,c22,c23,c24,c25,c26,c27,c28,c29,c30;
+            for(int i=0;i<50;i++){
+               if(i<count){
+                   j=i+3;
+                   b[i]=new String(request.getParameter("c"+j).getBytes("UTF-8"), "UTF-8");
+               }
+               else{
+                   b[i]=null;
+               }
+              //  System.out.println(b[i]);
+            }
+        //    log.info(new String(data.toString().getBytes("UTF-8"), "UTF-8"));
+            String query = "update register set c3='" + b[0] + "'  , c4='" + b[1] + "', c5='" + b[2] + "', c6='" + b[3] + "'"
+                    + ", c7='" + b[4] + "', c8='" + b[5] + "', c9='" + b[6] + "', c10='" + b[7] + "', c11='" + b[8] + "',"
+                    + " c12='" + b[9] + "', c13='" + b[10] + "', c14='" + b[11] + "', c15='" + b[12] + "', c16='" + b[13] + "', c"
+                    + "17='" + b[14] + "', c18='" + b[15] + "', c19='" + b[16] + "', c20='" + b[17] + "', c21='" + b[18] + "', c22='" + b[19] + "', c"
+                    + "23='" + b[20] + "', c24='" + b[21] + "', c25='" + b[22] + "', c26='" + b[23] + "', c27='" + b[24] + "', c28='" + b[25] + "', c29"
+                    + "='" + b[26] + "', c30='" + b[27] + "', c31='" + b[28] + "', c32='" + b[29] + "', c33='" + b[30] + "',status='"+st1+"'"
+                    + " where id=" + id + "  ";
 
             System.out.println(query);
             int i = st.executeUpdate(query);
 
             if (i > 0) {
                 request.setAttribute("msg", "Your Details updated Successfully!!");
-
-                out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  }");
-
+               
+               
+                 out.println("{\"Error\": \"False\" ,\"Message\": \"success\",\"status\": \"success\"  }");
+          
             } else {
                 request.setAttribute("msg", "Your Details  are Invalid!!");
-                out.println("{\"Error\": \"False\" ,\"Message\": \"Success\" }");
-
+                 out.println("{\"Error\": \"False\" ,\"Message\": \"Failed\",\"status\": \"Failed\" }");
+               
             }
 
+            
+ 
+
         } catch (Exception e) {
-            out.println("{\"Error\": \"True\" ,\"Message\": \"Request Failed\"  }");
+            out.println("{\"Error\": \"True\" ,\"Message\": \"Request Failed\" ,\"status\": \"Failed\"  }");
             e.printStackTrace();
         }
 

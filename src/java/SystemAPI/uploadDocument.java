@@ -58,13 +58,14 @@ public class uploadDocument extends HttpServlet {
        // C:\Users\newuser\Dropbox\documents
        //C:\\NetBeans\\Raman\\image\\
         
-         File dir = new File("C:\\Users\\panel2\\Dropbox\\documents\\" + id);
-    
+         //File dir = new File("C:\\Users\\Saksham\\Documents\\img\\" + id);
+    //File dir = new File("/opt/tomcat/webapps/raman/ROOT/img/" + id);
+   File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
-            
-        final String path = "C:\\Users\\panel2\\Dropbox\\documents\\" + id;
+          final String path = "/root/Dropbox/img" + id;
+       // final String path = "C:\\Users\\Saksham\\Documents\\img\\" + id;
         
         
        // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);
@@ -112,13 +113,13 @@ public class uploadDocument extends HttpServlet {
             }
             System.out.println("New file " + fileName + " created at " + path);
                 //col1name = concat(col1name, 'a,b,c');
-            String query = "update register set document=concat(document, '," + fileName + "') where id='" + id + "' ";
-
+          //  String query = "update register set document=concat(document, '," + fileName + "') where id='" + id + "' ";
+   String query = "update register set document='" + fileName + "' where id='" + id + "' ";
             System.out.println(query);
             int i = st.executeUpdate(query);
             if (i > 0) {
                 request.setAttribute("msg", "Your setings Change Successfully!!");
-                out.println("{\"Error\": \"False\" ,\"Message\": \"Your setings Change Successfully!!\"  }");
+                out.println("{\"Error\": \"False\" ,\"Message\": \" Image uploaded Successfully!!\"  }");
                 System.out.println("{\"Error\": \"False\" ,\"Message\": \"Your setings Change Successfully!!\"  }");
             } else {
                 out.println("{\"Error\": \"True\" ,\"Message\": \"Your setings is Invalid!!\"  }");
