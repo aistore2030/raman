@@ -59,13 +59,13 @@ public class uploadDocument extends HttpServlet {
        //C:\\NetBeans\\Raman\\image\\
         
          //File dir = new File("C:\\Users\\Saksham\\Documents\\img\\" + id);
-    //File dir = new File("/opt/tomcat/webapps/raman/ROOT/img/" + id);
-   File dir = new File("/root/Dropbox/img" + id);
+   File dir = new File("/opt/tomcat/webapps/raman/ROOT/img/" + id);
+   //File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
-          final String path = "/root/Dropbox/img" + id;
-       // final String path = "C:\\Users\\Saksham\\Documents\\img\\" + id;
+         // final String path = "/root/Dropbox/img" + id;
+        final String path = "/opt/tomcat/webapps/raman/ROOT/img/" + id;
         
         
        // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);

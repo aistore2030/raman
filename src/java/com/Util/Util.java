@@ -25,7 +25,9 @@ public class Util extends HttpServlet {
     static final String DATABASE_NAME = "ramanapp";
     static final String USERNAME = "ramanapp";
     ///static final String PASSWORD="1234";
-    static final String PASSWORD = "paI9!@#$%ykdpRsmHl";
+
+    static final String PASSWORD = "zaI4!@#$%dkdkTsmHw";
+    //static final String PASSWORD = "paI9!@#$%ykdpRsmHl";
 
     public static Connection getConnection() throws Exception {
 
