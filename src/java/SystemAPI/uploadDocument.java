@@ -59,13 +59,13 @@ public class uploadDocument extends HttpServlet {
        //C:\\NetBeans\\Raman\\image\\
         
          //File dir = new File("C:\\Users\\Saksham\\Documents\\img\\" + id);
-   File dir = new File("/opt/tomcat/webapps/raman/ROOT/img/" + id);
+   File dir = new File("/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/img/" + id);
    //File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
          // final String path = "/root/Dropbox/img" + id;
-        final String path = "/opt/tomcat/webapps/raman/ROOT/img/" + id;
+        final String path = "/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/img/" + id;
         
         
        // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);
@@ -78,9 +78,10 @@ public class uploadDocument extends HttpServlet {
         
         Connection con = null;
         Statement st = null;
+        String db=request.getParameter("dbname");
         try {
 
-            con = Util.getConnection();
+            con = Util.getConnection(db);
             st = con.createStatement();
             // System.out.println("uploadDocument");
             System.out.println("apicalll");

@@ -5,14 +5,11 @@
  */
 package com.Util;
 
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 /**
  *
@@ -20,90 +17,51 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Util extends HttpServlet {
 
-    static final String URL = "jdbc:mysql://localhost:3306/";
-
-    static final String DATABASE_NAME = "ramanapp";
-    static final String USERNAME = "ramanapp";
-    ///static final String PASSWORD="1234";
-
-    static final String PASSWORD = "zaI4!@#$%dkdkTsmHw";
     //static final String PASSWORD = "paI9!@#$%ykdpRsmHl";
+    public static Connection getConnection(String db) throws Exception {
 
-    public static Connection getConnection() throws Exception {
-
-        Class.forName("com.mysql.jdbc.Driver");
+        //   Class.forName("com.mysql.jdbc.Driver");
         //  String strConnectionURL = "jdbc:mysql://localhost:3306/ramanapp?user=ramanapp&password=zaI4!@#$%dkdkTsmHw";
         // String strConnectionURL = "jdbc:mysql://localhost:3306/ramanapp?useUnicode=yes&characterEncoding=UTF-8&user=ramanapp&password=1234";
-        Connection con = DriverManager.getConnection(URL + DATABASE_NAME, USERNAME, PASSWORD);
+        // Connection con = DriverManager.getConnection(URL + DATABASE_NAME, USERNAME, PASSWORD);
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+        // Connection con = DriverManager.getConnection("jdbc:sqlserver://184.168.47.21;databaseName=ph20979541854_", db, "Raman@1987");
+//Connection con = DriverManager.getConnection("jdbc:sqlserver://184.168.47.21;databaseName=ph20979541854_",db, "Raman@1987");
+        Connection con = null;
+     
 
-        // Connection con=DriverManager.getConnection(strConnectionURL); 
+        
+       
+            String password = db + "@968f2@#$ab629c74!@#!@";
+System.out.println("ph20875305531_"+db+ "databasename");
+            String pw = md5(password);
+          
+            con = DriverManager.getConnection("jdbc:sqlserver://43.255.152.21;databaseName=ph20875305531_"+db, db, pw);
+
+            
+       
+
         return con;
 
     }
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Util</title>");
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Util at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+    public static String md5(String password) throws NoSuchAlgorithmException {
+        System.out.println("md5md5md5");
+
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(password.getBytes());
+
+        byte byteData[] = md.digest();
+
+        //convert the byte to hex format method 1
+        StringBuffer sb = new StringBuffer();
+        for (int i = 0; i < byteData.length; i++) {
+            sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
         }
+
+        System.out.println("Digest(in hex format):: " + sb.toString());
+        String pass = sb.toString();
+         System.out.println("password  password" + sb.toString());
+        return pass;
     }
-
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
-     * Handles the HTTP <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Handles the HTTP <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Short description";
-    }// </editor-fold>
-
 }

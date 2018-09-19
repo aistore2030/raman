@@ -16,8 +16,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,6 +26,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author sakshamapp123
  */
 public class AllUsers extends HttpServlet {
+
+    private String c54;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,43 +42,49 @@ public class AllUsers extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
+  System.out.println("all user");
         Connection con = null;
         Statement st = null;
-
+String username=request.getParameter("username");
+System.out.println("username"+username);
+String db=request.getParameter("dbname");
+System.out.println("dbbbbbbbbb"+db);
         try {
             PrintWriter out = response.getWriter();
-            con = Util.getConnection();
-            st = con.createStatement();
+            con = Util.getConnection(db);
+            st = con.createStatement();   
+            
+            String allc=GetAllColumn(con, st);
             //////////////////////////////// get column name start 
-            String query = "select * from register limit 1 ";
+            String query = "select top 1 * from register  ";
 
             System.out.println(query);
             ResultSet rs1 = st.executeQuery(query);
             String[] carray = new String[500];
+            
+            
+   
             int column_count = 0;
             while (rs1.next()) {
                 column_count = Integer.parseInt(rs1.getString("column_count").trim());
                 System.out.println(column_count);
-                for (int i = 0; i < column_count + 4; i++) {
+                  carray[0] = "id";
+                
+                for (int i = 1; i < column_count + 4; i++) {
 
-                    if (i == 0) {
-                        carray[i] = "id";
-                    } else {
-                        carray[i] = rs1.getString(i + 1);
-                    }
+                    carray[i] = rs1.getString(i + 1);
+                    
                     //System.out.println(carray[i]);
                     carray[50] = rs1.getString("column_count");
                     carray[51] = rs1.getString("document");
-                   // carray[52] = rs1.getString("status");
-                    
+                    // carray[52] = rs1.getString("status");
 
                 }
             }
             String roll = "";
-            String username = request.getParameter("username");
-            System.out.print(username);
-           
+           // String username = request.getParameter("username");
+            // out.print(username);
+
             String q = "select * from register where c1='" + username + "'";
             System.out.print(q);
             ResultSet rs2 = st.executeQuery(q);
@@ -86,8 +92,7 @@ public class AllUsers extends HttpServlet {
                 roll = rs2.getString("roll");
             }
             System.out.println(roll);
-          
-            
+
             query = "select * from register where id in (" + roll + ")  ";
             System.out.print(query);
             ArrayList rData = new ArrayList();
@@ -106,6 +111,7 @@ public class AllUsers extends HttpServlet {
                 a1.c0 = rs.getString(1);
                 //  a1.c1 = carray[1] + " : " + rs.getString(2);
                 a1.c1 = rs.getString(3);
+                System.out.println("a1.c1"+a1.c1);
                 a1.c2 = rs.getString(4);
                 a1.c3 = rs.getString(5);
                 a1.c4 = rs.getString(6);
@@ -139,11 +145,20 @@ public class AllUsers extends HttpServlet {
                 a1.c30 = rs.getString(32);
                 a1.c31 = rs.getString(33);
 
+
+                  a1.c32 = rs.getString(34);
+                a1.c33 = rs.getString(35);
+                a1.c34 = rs.getString(36);
+                   a1.c35 = rs.getString(37);
+           
+                a1.c36 = rs.getString(38);
+    
                 a1.c50 = carray[50];
                 a1.c51 = rs.getString("document");
-                 a1.c53 = rs.getString("status");
- //a1.c52 = GetAllColumn(  con, st );
- a1.c52 = GetAllColumn( );
+                a1.c53 = rs.getString("status");
+                a1.c54 = rs.getString("updated_on");
+                a1.c52 =allc;// GetAllColumn(con, st);
+                //a1.c52 = GetAllColumn();
                 a.add(a1);
             }
             Gson gson = new GsonBuilder().create();
@@ -195,68 +210,59 @@ public class AllUsers extends HttpServlet {
         return "Short description";
     }// </editor-fold>
 
-    
-    public String GetAllColumn() throws SQLException
-    {
-          Connection con1 = null;
-        Statement st1 = null;
-        try {
-            con1 = Util.getConnection();
-        } catch (Exception ex) {
-            Logger.getLogger(AllUsers.class.getName()).log(Level.SEVERE, null, ex);
-        }
-            st1 = con1.createStatement();
-           String query = "select * from register limit 1 ";
+    public String GetAllColumn(Connection con, Statement st) throws SQLException {
 
-            System.out.println(query);
-            ResultSet rs3 = st1.executeQuery(query);
-            String[] carray = new String[60];
-            int column_count = 0;
-            while (rs3.next()) {
-                column_count = Integer.parseInt(rs3.getString("column_count").trim());
-                System.out.println(column_count);
-                for (int i = 0; i < column_count + 4; i++) {
+        String query = "select top 1 * from register  ";
 
-                    if (i == 0) {
-                        carray[i] = "id";
-                    } else {
-                        carray[i] = rs3.getString(i + 1);
-                    }
-                    //System.out.println(carray[i]);
-                    carray[50] = rs3.getString("column_count");
-                    carray[51] = rs3.getString("document");
+        System.out.println(query);
+        ResultSet rs31 = st.executeQuery(query);
+        String[] carray = new String[60];
+        int column_count = 0;
+        while (rs31.next()) {
+            column_count = Integer.parseInt(rs31.getString("column_count").trim());
+            System.out.println(column_count);
+            for (int i = 0; i < column_count + 4; i++) {
 
+                if (i == 0) {
+                    carray[i] = "id";
+                } else {
+                    carray[i] = rs31.getString(i + 1);
                 }
+                //System.out.println(carray[i]);
+                carray[50] = rs31.getString("column_count");
+                carray[51] = rs31.getString("document");
+
             }
-            String query1 = "select * from register where id=2 ";
+        }
+        String query1 = "select * from register where id=2 ";
 
-            System.out.println(query1);
-            ResultSet rs4 = st1.executeQuery(query1);
-            String[] darray = new String[60];
+        System.out.println(query1);
+        ResultSet rs41 = st.executeQuery(query1);
+        String[] darray = new String[60];
 
-            while (rs4.next()) {
-                for (int i = 0; i < column_count + 4; i++) {
+        while (rs41.next()) {
+            for (int i = 0; i < column_count + 4; i++) {
 
-                    if (i == 0) {
-                        darray[i] = "number";
-                    } else {
-                        darray[i] = rs4.getString(i + 1);
-                    }
-                    //   System.out.println(darray[i]);
-                    darray[50] = rs4.getString("column_count");
-                    darray[51] = rs4.getString("document");
+                if (i == 0) {
+                    darray[i] = "number";
+                } else {
+                    darray[i] = rs41.getString(i + 1);
                 }
-            } 
- 
-            String carrayCombine = Arrays.toString(carray);
+                //   System.out.println(darray[i]);
+                darray[50] = rs41.getString("column_count");
+                darray[51] = rs41.getString("document");
+            }
+        }
 
-            String darrayCombine = Arrays.toString(darray);
+        String carrayCombine = Arrays.toString(carray);
 
-             return carrayCombine + "#" + darrayCombine;
-            
+        String darrayCombine = Arrays.toString(darray);
+
+        return carrayCombine + "#" + darrayCombine;
+
     }
     private String a0;
-     private String c0;
+    private String c0;
     private String c1;
     private String c2;
     private String c3;
@@ -275,5 +281,5 @@ public class AllUsers extends HttpServlet {
     private String c15;
     private String c16;
     private String c17, c20, c18, c19, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c50, c51;
- private String c52,c53;
+    private String c52, c53,c35,c36;
 }
