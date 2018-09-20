@@ -122,11 +122,11 @@ public class Login extends HttpServlet {
 
     protected boolean checkArray(String element) {
         System.out.println("checkArraycheckArray");
-        String[] datatypes = {"varc", "numb", "deci", "date", "drop","hide"};
+        String[] datatypes = {"varc", "numb", "deci", "date", "drop","hide","disa"};
 String e="varchar";
 String f=e.substring(0,3);
       System.out.println(f+"fffffffffff");
-        for (int i = 0; i <= 5; i++) {
+        for (int i = 0; i <= 6; i++) {
             System.out.println("inside for");
             if (datatypes[i].equals(element.substring(0,4))) {
                 return true;
