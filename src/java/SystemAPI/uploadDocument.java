@@ -50,54 +50,72 @@ public class uploadDocument extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         PrintWriter out = response.getWriter();
-
-        String id = request.getParameter("id").trim();
-        System.out.println(id);
-        //get id 
-        // create folder 
-       // C:\Users\newuser\Dropbox\documents
-       //C:\\NetBeans\\Raman\\image\\
+        System.out.println("52");
+         String query="";
+          query = "insert into system_log( `servelet`, `logmsg` ) values "
+                    + "('uploaddocument','" + request.getRequestURL().toString() + request.getQueryString() + "' )";
+            System.out.println(query);
+              String dbname = request.getParameter("dbname");
+           System.out.println(dbname+"dbnamedbname");
+     // String id = request.getParameter("id").trim();
+  String id="25";
+        System.out.println(id+"id");
         
-         //File dir = new File("C:\\Users\\Saksham\\Documents\\img\\" + id);
-   File dir = new File("/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/img/" + id);
+           
+      //  System.out.println(id);
+    
+       
+   //File dir = new File("/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/"+dbname+"/" + id);
+   
+   File dir = new File("C://Users//Saksham//Documents//ramandocument/"+dbname+"/");
+   
    //File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
          // final String path = "/root/Dropbox/img" + id;
-        final String path = "/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/img/" + id;
-        
+         
+         
+       // final String path = "/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/"+dbname+"/" + id;
+        final String path = "C://Users//Saksham//Documents//ramandocument/"+dbname+"/";
         
        // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);
        
         if (!dir.exists()) {
-     boolean successful = dir.mkdir();
-             System.out.println(successful+"successful");
+            System.out.println("inside if");
+   //  boolean successful = dir.mkdir();
+           //  System.out.println(successful+"successful");
+           
+           if (dir.mkdir()) {
+                System.out.println("Directory is created!");
+            } else {
+                System.out.println("Failed to create directory!");
+            }
 }
        
         
         Connection con = null;
         Statement st = null;
-        String db=request.getParameter("dbname");
-        try {
+       // String db=request.getParameter("dbname");
+    try {
 
-            con = Util.getConnection(db);
+            con = Util.getConnection(dbname);
             st = con.createStatement();
-            // System.out.println("uploadDocument");
-            System.out.println("apicalll");
+         
+            //System.out.println("apicalll");
             String username = (request.getParameter("username"));
-            System.out.println(request.getParameter("apicall"));
+         //   System.out.println(request.getParameter("apicall"));
             System.out.println(username);
             
             final Part pic = request.getPart("pic");
             System.out.println(43);
             System.out.println(pic);
-            //final Part filePart = request.getPart("file");
+         
             System.out.println(47);
-            //  System.out.println(filePart);
+         
             final String fileName = Paths.get(pic.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
             InputStream fileContent = pic.getInputStream();
-            /* TODO output your page here. You may use following sample code. */
+         
             System.out.println(pic);
             System.out.println(fileName + "fileName");
             System.out.println(fileContent + "fileContent");
@@ -113,9 +131,8 @@ public class uploadDocument extends HttpServlet {
                 o.write(bytes, 0, read);
             }
             System.out.println("New file " + fileName + " created at " + path);
-                //col1name = concat(col1name, 'a,b,c');
-          //  String query = "update register set document=concat(document, '," + fileName + "') where id='" + id + "' ";
-   String query = "update register set document='" + fileName + "' where id='" + id + "' ";
+            
+       query = "update register set document='" + fileName + "' where id='" + id + "' ";
             System.out.println(query);
             int i = st.executeUpdate(query);
             if (i > 0) {
