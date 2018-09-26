@@ -28,6 +28,10 @@
         <servlet-name>EditUserNew</servlet-name>
         <servlet-class>SystemAPI.EditUserNew</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>uploadtest</servlet-name>
+        <servlet-class>SystemAPI.uploadtest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Util</servlet-name>
         <url-pattern>/Util</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>EditUserNew</servlet-name>
         <url-pattern>/EditUserNew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>uploadtest</servlet-name>
+        <url-pattern>/uploadtest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
