@@ -13,13 +13,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,11 +59,11 @@ public class uploadDocument extends HttpServlet {
             System.out.println(query);
             String dbname = request.getParameter("dbname");
             System.out.println(dbname + "dbnamedbname");
-            String id = request.getParameter("id").trim();
-            // String id="25";
-            System.out.println(id + "id");
-            String picture = request.getParameter("iname");
-            System.out.println(picture + "picture");
+           String id = request.getParameter("id").trim();
+          // String id="25";
+           /// System.out.println(id + "id");
+            //String picture = request.getParameter("iname");
+          //  System.out.println(picture + "picture");
             //  System.out.println(id);
 
             Path path = Paths.get("S:\\ramandotest\\" + dbname + "\\" + id);
@@ -80,13 +77,12 @@ public class uploadDocument extends HttpServlet {
                     e.printStackTrace();
                 }
             }
-            MultipartRequest m = new MultipartRequest(request, "S:\\ramandotest\\" + dbname + "\\" + id);
 
             //File dir = new File("C:\\Users\\Saksham\\Documents\\ramandocument\\" +dbname+"\\"+id);
             /* File dir = new File("S:\\ramandotest\\" +dbname+"\\"+id);
-  
+
    System.out.println(dir+"dir");
-   
+
    //File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here
            // boolean successful = dir.mkdir();
@@ -95,22 +91,18 @@ public class uploadDocument extends HttpServlet {
              */
             Connection con = null;
             Statement st = null;
-
             con = Util.getConnection(dbname);
             st = con.createStatement();
-
             String username = (request.getParameter("username"));
-            //   System.out.println(request.getParameter("apicall"));
-            System.out.println(username);
-
+               System.out.println(username);
+           System.out.println(request.getParameter("apicall"));
+         
             final Part pic;
-            pic = request.getPart("multipartBody");
-            System.out.println(pic);
-            //   System.out.println(43);
+            pic = request.getPart("pic");
             System.out.println(pic);
 
+            System.out.println(pic);
             System.out.println(47);
-
             final String fileName = Paths.get(pic.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
             InputStream fileContent = pic.getInputStream();
 
@@ -146,10 +138,11 @@ public class uploadDocument extends HttpServlet {
                 rq.forward(request, response);
                 out.println("{\"Error\": \"True\" ,\"Message\": \"Request Failed\"  }");
             }
+            MultipartRequest m = new MultipartRequest(request, "S:\\ramandotest\\" + dbname + "\\" + id);
             /*   String dbname = request.getParameter("dbname");
            String id = request.getParameter("id").trim();
                   String picture = request.getParameter("iname");
-                   String multipart = request.getParameter("multipartBody");  
+                   String multipart = request.getParameter("multipartBody");
       File directory = new File("C:\\Users\\Saksham\\Documents\\NetBeansProject\\APISakshamapp\\web\\upload\\");
 
         //   File directory = new File("/opt/tomcat/pancard/ROOT/upload/" + username+"/"+id);
