@@ -150,8 +150,10 @@ System.out.println("dbbbbbbbbb"+db);
                 a1.c33 = rs.getString(35);
                 a1.c34 = rs.getString(36);
                    a1.c35 = rs.getString(37);
+                      a1.c36 = rs.getString(38);
+                        a1.c37 = rs.getString(39);
            
-                a1.c36 = rs.getString(38);
+             
     
                 a1.c50 = carray[50];
                 a1.c51 = rs.getString("document");
@@ -281,5 +283,5 @@ System.out.println("dbbbbbbbbb"+db);
     private String c15;
     private String c16;
     private String c17, c20, c18, c19, c21, c22, c23, c24, c25, c26, c27, c28, c29, c30, c31, c32, c33, c34, c50, c51;
-    private String c52, c53,c35,c36;
+    private String c52, c53,c35,c36,c37;
 }

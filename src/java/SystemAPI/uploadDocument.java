@@ -66,7 +66,8 @@ public class uploadDocument extends HttpServlet {
           //  System.out.println(picture + "picture");
             //  System.out.println(id);
 
-            Path path = Paths.get("S:\\ramandotest\\" + dbname + "\\" + id);
+           // Path path = Paths.get("S:\\ramandotest\\" + dbname + "\\" + id);
+            Path path = Paths.get("/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
             System.out.println(path);
             //if directory exists?
             if (!Files.exists(path)) {
@@ -138,26 +139,11 @@ public class uploadDocument extends HttpServlet {
                 rq.forward(request, response);
                 out.println("{\"Error\": \"True\" ,\"Message\": \"Request Failed\"  }");
             }
-            MultipartRequest m = new MultipartRequest(request, "S:\\ramandotest\\" + dbname + "\\" + id);
-            /*   String dbname = request.getParameter("dbname");
-           String id = request.getParameter("id").trim();
-                  String picture = request.getParameter("iname");
-                   String multipart = request.getParameter("multipartBody");
-      File directory = new File("C:\\Users\\Saksham\\Documents\\NetBeansProject\\APISakshamapp\\web\\upload\\");
-
-        //   File directory = new File("/opt/tomcat/pancard/ROOT/upload/" + username+"/"+id);
-        if (!directory.exists()) {
-            //let's try to create it
-            try {
-                directory.mkdir();
-            } catch (SecurityException secEx) {
-                //handle the exception
-                secEx.printStackTrace(System.out);
-                directory = null;
-            }
-        }
-        MultipartRequest m = new MultipartRequest(request, "C:\\Users\\Saksham\\Documents\\NetBeansproject\\APISakshamapp\\web\\upload\\");
-             */
+           // MultipartRequest m = new MultipartRequest(request, "S:\\ramandotest\\" + dbname + "\\" + id);
+           
+           MultipartRequest m = new MultipartRequest(request, "/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
+           
+         
         } catch (Exception ex) {
             Logger.getLogger(uploadDocument.class.getName()).log(Level.SEVERE, null, ex);
         }
