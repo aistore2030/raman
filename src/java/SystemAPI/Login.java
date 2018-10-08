@@ -39,7 +39,8 @@ public class Login extends HttpServlet {
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
         Connection con = null;
-        Statement st = null;
+        Statement st1 = null;
+                Statement st = null;
         PrintWriter out = response.getWriter();
         String c1 = request.getParameter("username");
 
@@ -51,8 +52,10 @@ public class Login extends HttpServlet {
             System.out.println(db + "dbbbbbbbbbbbbbbb");
             // String id = request.getParameter("txid");
             ResultSet rs;
+             ResultSet rs1;
             con = Util.getConnection(db);
             st = con.createStatement();
+             st1 = con.createStatement();
             //////////////////////////////////
             String query2 = "SELECT  * FROM register where id=2";
             rs = st.executeQuery(query2);
@@ -84,24 +87,30 @@ public class Login extends HttpServlet {
  System.out.println(pass+"pass");
              String query = "select *  from  register    where   c1='" + c1 + "' and  c2='" + c2 + "'    ";
 
+             
                 System.out.println(query);
 
-                // PrintWriter out=response.getWriter(); 
                 rs = st.executeQuery(query);
 
                 if (rs.next()) {
+                   String  query1="select documentname from register where roll=2";
+                     System.out.println(query1);
+                 
+                rs1 = st1.executeQuery(query1);
+                
+                
                     System.out.println(61);
-                    out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"Roll\": \"" + rs.getString("c13") + "\"  ,\"Name\": \"" + rs.getString("c1") + "\",\"Email\": \"" + rs.getString("c1") + "\",\"Mobile\": \"" + rs.getString("c3") + "\",\"Avtar\": \"http://papafast.com:8080/MobiTop/ay/images/1.png\"}");
+                    out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"Roll\": \"" + rs.getString("roll") + "\"  ,\"Name\": \"" + rs.getString("c1") + "\",\"Email\": \"" + rs.getString("c4") + "\",\"Mobile\": \"" + rs.getString("c3") + "\",\"DocumentName\": \"" + rs.getString("documentname") + "\",\"Avtar\": \"http://papafast.com:8080/MobiTop/ay/images/1.png\"}");
 
                 } else {
                     out.println("{\"Error\": \"True\" ,\"Message\": \"Failed\"  }");
-                    //  out.print("Username and Password are Invalid!!");
+                 
                 }
 
             }
            else {
                     out.println("{\"Error\": \"True\" ,\"Message\": \"Database configuration error\"  }");
-                    //  out.print("Username and Password are Invalid!!");
+             
                 }
 
 

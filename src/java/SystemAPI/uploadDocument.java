@@ -80,16 +80,16 @@ public class uploadDocument extends HttpServlet {
             }
 
             //File dir = new File("C:\\Users\\Saksham\\Documents\\ramandocument\\" +dbname+"\\"+id);
-            /* File dir = new File("S:\\ramandotest\\" +dbname+"\\"+id);
+           File dir = new File("S:\\ramandotest\\" +dbname+"\\"+id);
 
    System.out.println(dir+"dir");
 
-   //File dir = new File("/root/Dropbox/img" + id);
+   /*File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here
-           // boolean successful = dir.mkdir();
+            boolean successful = dir.mkdir();
             // System.out.println(successful+"successful");
-         // final String path = "/root/Dropbox/img" + id;
-             */
+         final String path = "/root/Dropbox/img" + id;*/
+           
             Connection con = null;
             Statement st = null;
             con = Util.getConnection(dbname);
@@ -129,10 +129,10 @@ public class uploadDocument extends HttpServlet {
             if (i > 0) {
                 request.setAttribute("msg", "Your setings Change Successfully!!");
                 out.println("{\"Error\": \"False\" ,\"Message\": \" Image uploaded Successfully!!\"  }");
-                System.out.println("{\"Error\": \"False\" ,\"Message\": \"Your setings Change Successfully!!\"  }");
+                System.out.println("{\"Error\": \"False\" ,\"Message\": \"Your settings Change Successfully!!\"  }");
             } else {
-                out.println("{\"Error\": \"True\" ,\"Message\": \"Your setings is Invalid!!\"  }");
-                System.out.println("{\"Error\": \"True\" ,\"Message\": \"Your setings is Invalid!!\"  }");
+                out.println("{\"Error\": \"True\" ,\"Message\": \"Your setting is Invalid!!\"  }");
+                System.out.println("{\"Error\": \"True\" ,\"Message\": \"Your settings are Invalid!!\"  }");
                 request.setAttribute("msg", "Your setings is Invalid!!");
 
                 RequestDispatcher rq = request.getRequestDispatcher("message.jsp");

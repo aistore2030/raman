@@ -183,9 +183,9 @@ System.out.println(request.getParameter("c" + j)+"c[value]");
             System.out.println(message);
             String data = "apikey=" + URLEncoder.encode("8717476d-a1c6-4c8b-9ba5-8ef790535970", encoding);
 
-            data += "&from=" + URLEncoder.encode("mbrcapp@gmail.com", encoding);
+            data += "&from=" + URLEncoder.encode("info.oconnector@gmail.com", encoding);
             System.out.println(111);
-            data += "&fromName=" + URLEncoder.encode("mbrcapp@gmail.com", encoding);
+            data += "&fromName=" + URLEncoder.encode("info.oconnector@gmail.com", encoding);
             System.out.println(222);
             data += "&subject=Data updating copy";
 

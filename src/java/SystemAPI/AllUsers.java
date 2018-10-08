@@ -158,6 +158,8 @@ System.out.println("dbbbbbbbbb"+db);
                 a1.c50 = carray[50];
                 a1.c51 = rs.getString("document");
                 a1.c53 = rs.getString("status");
+                
+                System.out.println("a1.c53"+a1.c53);
                 a1.c54 = rs.getString("updated_on");
                 a1.c52 =allc;// GetAllColumn(con, st);
                 //a1.c52 = GetAllColumn();
