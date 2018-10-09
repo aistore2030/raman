@@ -67,7 +67,7 @@ public class uploadDocument extends HttpServlet {
             //  System.out.println(id);
 
            // Path path = Paths.get("S:\\ramandotest\\" + dbname + "\\" + id);
-            Path path = Paths.get("/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
+            Path path = Paths.get("/opt/apache-tomcat-9.0.12/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
             System.out.println(path);
             //if directory exists?
             if (!Files.exists(path)) {
@@ -80,9 +80,9 @@ public class uploadDocument extends HttpServlet {
             }
 
             //File dir = new File("C:\\Users\\Saksham\\Documents\\ramandocument\\" +dbname+"\\"+id);
-           File dir = new File("S:\\ramandotest\\" +dbname+"\\"+id);
+          // File dir = new File("S:\\ramandotest\\" +dbname+"\\"+id);
 
-   System.out.println(dir+"dir");
+   //System.out.println(dir+"dir");
 
    /*File dir = new File("/root/Dropbox/img" + id);
     // attempt to create the directory here

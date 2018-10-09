@@ -93,7 +93,7 @@ public class Login extends HttpServlet {
                 rs = st.executeQuery(query);
 
                 if (rs.next()) {
-                   String  query1="select documentname from register where roll=2";
+                   String  query1="select documentname from register where id=2";
                      System.out.println(query1);
                  
                 rs1 = st1.executeQuery(query1);

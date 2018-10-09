@@ -185,7 +185,8 @@ System.out.println(request.getParameter("c" + j)+"c[value]");
 
             data += "&from=" + URLEncoder.encode("info.oconnector@gmail.com", encoding);
             System.out.println(111);
-            data += "&fromName=" + URLEncoder.encode("info.oconnector@gmail.com", encoding);
+            //data += "&fromName=" + URLEncoder.encode("info.oconnector@gmail.com", encoding);
+            data += "&fromName=" + URLEncoder.encode("Office Connector", encoding);
             System.out.println(222);
             data += "&subject=Data updating copy";
 
