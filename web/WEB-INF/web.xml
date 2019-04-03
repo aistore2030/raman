@@ -9,48 +9,12 @@
         <servlet-class>SystemAPI.Login</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>LoginApi</servlet-name>
-        <servlet-class>SystemAPI.LoginApi</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Profile</servlet-name>
-        <servlet-class>SystemAPI.Profile</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>YourProfile</servlet-name>
-        <servlet-class>SystemAPI.YourProfile</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>AllUsers</servlet-name>
         <servlet-class>SystemAPI.AllUsers</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>EditUser</servlet-name>
-        <servlet-class>SystemAPI.EditUser</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>column_details</servlet-name>
-        <servlet-class>SystemAPI.column_details</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Detail</servlet-name>
-        <servlet-class>SystemAPI.Detail</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>Column_Name</servlet-name>
-        <servlet-class>SystemAPI.Column_Name</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>EditUserRaman</servlet-name>
-        <servlet-class>SystemAPI.EditUserRaman</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>uploadDocument</servlet-name>
         <servlet-class>SystemAPI.uploadDocument</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>AllColumns</servlet-name>
-        <servlet-class>SystemAPI.AllColumns</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>test</servlet-name>
@@ -64,6 +28,10 @@
         <servlet-name>EditUserNew</servlet-name>
         <servlet-class>SystemAPI.EditUserNew</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>uploadtest</servlet-name>
+        <servlet-class>SystemAPI.uploadtest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Util</servlet-name>
         <url-pattern>/Util</url-pattern>
@@ -73,48 +41,12 @@
         <url-pattern>/Login</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>LoginApi</servlet-name>
-        <url-pattern>/LoginApi</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Profile</servlet-name>
-        <url-pattern>/Profile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>YourProfile</servlet-name>
-        <url-pattern>/YourProfile</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>AllUsers</servlet-name>
         <url-pattern>/AllUsers</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>EditUser</servlet-name>
-        <url-pattern>/EditUser</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>column_details</servlet-name>
-        <url-pattern>/column_details</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Detail</servlet-name>
-        <url-pattern>/Detail</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>Column_Name</servlet-name>
-        <url-pattern>/Column_Name</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>EditUserRaman</servlet-name>
-        <url-pattern>/EditUserRaman/*</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>uploadDocument</servlet-name>
         <url-pattern>/uploadDocument</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>AllColumns</servlet-name>
-        <url-pattern>/AllColumns</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>test</servlet-name>
@@ -127,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>EditUserNew</servlet-name>
         <url-pattern>/EditUserNew</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>uploadtest</servlet-name>
+        <url-pattern>/uploadtest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

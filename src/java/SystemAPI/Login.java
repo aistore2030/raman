@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +21,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author sakshamapp123
+ * @author panel2
  */
 public class Login extends HttpServlet {
 
@@ -33,38 +35,84 @@ public class Login extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-         response.setContentType("application/json");
+            throws ServletException, IOException, SQLException, Exception {
+        response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-
         Connection con = null;
-        Statement st = null;
-        String c1 = request.getParameter("username");
-        String c2 = request.getParameter("password");
-        // String id = request.getParameter("txid");
-        ResultSet rs;
-
-        //String query = "select  sum(cr)- sum(dr as s from register r , transactions t where r.username=t.username and r.username='"+username+"' and password='"+password+"'  ";
-        String query = "select *  from  register    where   c1='" + c1 + "' and  c2='" + c2 + "'    ";
-
-        System.out.println(query);
+        Statement st1 = null;
+                Statement st = null;
         PrintWriter out = response.getWriter();
+        String c1 = request.getParameter("username");
+
         try {
-            // PrintWriter out=response.getWriter(); 
-
-            con = Util.getConnection();
+            System.out.println(c1 + "c111111111");
+            String c2 = request.getParameter("password");
+            System.out.println(c2 + "c22222");
+            String db = request.getParameter("dbname");
+            System.out.println(db + "dbbbbbbbbbbbbbbb");
+            // String id = request.getParameter("txid");
+            ResultSet rs;
+             ResultSet rs1;
+            con = Util.getConnection(db);
             st = con.createStatement();
+             st1 = con.createStatement();
+            //////////////////////////////////
+            String query2 = "SELECT  * FROM register where id=2";
+            rs = st.executeQuery(query2);
 
-            rs = st.executeQuery(query);
+            System.out.println(query2);
+            boolean pass = true;
 
+            String[] arrayss = new String[40];
+
+            int index = 0;
             if (rs.next()) {
-                System.out.println(61);
-                out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"Roll\": \""+rs.getString("c13")+"\"  ,\"Name\": \""+rs.getString("c1")+"\",\"Email\": \""+rs.getString("c1")+"\",\"Mobile\": \""+rs.getString("c3")+"\",\"Avtar\": \"http://papafast.com:8080/MobiTop/ay/images/1.png\"}");
+                System.out.println("checkArraycheckArray");
+                for (index = 2; index < 36; index++) {
 
-            } else {
-                out.println("{\"Error\": \"True\" ,\"Message\": \"Failed\"  }");
-                //  out.print("Username and Password are Invalid!!");
+                    if (checkArray(rs.getString(index + 1))) {
+                    } else {
+                        pass = false;
+
+                        break;
+
+                    }
+
+                }
+
             }
+            System.out.println(arrayss);
+            ///////////////////////////////////
+            if(pass){
+ System.out.println(pass+"pass");
+             String query = "select *  from  register    where   c1='" + c1 + "' and  c2='" + c2 + "'    ";
+
+             
+                System.out.println(query);
+
+                rs = st.executeQuery(query);
+
+                if (rs.next()) {
+                   String  query1="select documentname from register where id=2";
+                     System.out.println(query1);
+                 
+                rs1 = st1.executeQuery(query1);
+                
+                
+                    System.out.println(61);
+                    out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"Roll\": \"" + rs.getString("roll") + "\"  ,\"Name\": \"" + rs.getString("c1") + "\",\"Email\": \"" + rs.getString("c4") + "\",\"Mobile\": \"" + rs.getString("c3") + "\",\"DocumentName\": \"" + rs.getString("documentname") + "\",\"Avtar\": \"http://papafast.com:8080/MobiTop/ay/images/1.png\"}");
+
+                } else {
+                    out.println("{\"Error\": \"True\" ,\"Message\": \"Failed\"  }");
+                 
+                }
+
+            }
+           else {
+                    out.println("{\"Error\": \"True\" ,\"Message\": \"Database configuration error\"  }");
+             
+                }
+
 
         } catch (Exception e) {
             out.println(e.getMessage());
@@ -79,9 +127,22 @@ public class Login extends HttpServlet {
             } catch (SQLException e) {
             }
         }
-
     }
 
+    protected boolean checkArray(String element) {
+        System.out.println("checkArraycheckArray");
+        String[] datatypes = {"varc", "numb", "deci", "date", "drop","hide","disa"};
+String e="varchar";
+String f=e.substring(0,3);
+      System.out.println(f+"fffffffffff");
+        for (int i = 0; i <= 6; i++) {
+            System.out.println("inside for");
+            if (datatypes[i].equals(element.substring(0,4))) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
@@ -95,7 +156,13 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -109,7 +176,13 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

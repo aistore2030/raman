@@ -6,6 +6,7 @@
 package SystemAPI;
 
 import com.Util.Util;
+import com.oreilly.servlet.MultipartRequest;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -16,7 +17,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Connection;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -49,54 +49,64 @@ public class uploadDocument extends HttpServlet {
         System.out.println("uploadDocument");
         response.setContentType("application/json");
         response.setCharacterEncoding("UTF-8");
-        PrintWriter out = response.getWriter();
-
-        String id = request.getParameter("id").trim();
-        System.out.println(id);
-        //get id 
-        // create folder 
-       // C:\Users\newuser\Dropbox\documents
-       //C:\\NetBeans\\Raman\\image\\
-        
-         //File dir = new File("C:\\Users\\Saksham\\Documents\\img\\" + id);
-   File dir = new File("/opt/tomcat/webapps/raman/ROOT/img/" + id);
-   //File dir = new File("/root/Dropbox/img" + id);
-    // attempt to create the directory here
-           // boolean successful = dir.mkdir();
-            // System.out.println(successful+"successful");
-         // final String path = "/root/Dropbox/img" + id;
-        final String path = "/opt/tomcat/webapps/raman/ROOT/img/" + id;
-        
-        
-       // Path p=new Path("C:\\NetBeans\\Raman\\image\\" + id);
-       
-        if (!dir.exists()) {
-     boolean successful = dir.mkdir();
-             System.out.println(successful+"successful");
-}
-       
-        
-        Connection con = null;
-        Statement st = null;
         try {
 
-            con = Util.getConnection();
+            PrintWriter out = response.getWriter();
+            System.out.println("52");
+            String query = "";
+            query = "insert into system_log( `servelet`, `logmsg` ) values "
+                    + "('uploaddocument','" + request.getRequestURL().toString() + request.getQueryString() + "' )";
+            System.out.println(query);
+            String dbname = request.getParameter("dbname");
+            System.out.println(dbname + "dbnamedbname");
+           String id = request.getParameter("id").trim();
+          // String id="25";
+           /// System.out.println(id + "id");
+            //String picture = request.getParameter("iname");
+          //  System.out.println(picture + "picture");
+            //  System.out.println(id);
+
+           // Path path = Paths.get("S:\\ramandotest\\" + dbname + "\\" + id);
+            Path path = Paths.get("/opt/apache-tomcat-9.0.12/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
+            System.out.println(path);
+            //if directory exists?
+            if (!Files.exists(path)) {
+                try {
+                    Files.createDirectories(path);
+                } catch (IOException e) {
+                    //fail to create directory
+                    e.printStackTrace();
+                }
+            }
+
+            //File dir = new File("C:\\Users\\Saksham\\Documents\\ramandocument\\" +dbname+"\\"+id);
+          // File dir = new File("S:\\ramandotest\\" +dbname+"\\"+id);
+
+   //System.out.println(dir+"dir");
+
+   /*File dir = new File("/root/Dropbox/img" + id);
+    // attempt to create the directory here
+            boolean successful = dir.mkdir();
+            // System.out.println(successful+"successful");
+         final String path = "/root/Dropbox/img" + id;*/
+           
+            Connection con = null;
+            Statement st = null;
+            con = Util.getConnection(dbname);
             st = con.createStatement();
-            // System.out.println("uploadDocument");
-            System.out.println("apicalll");
             String username = (request.getParameter("username"));
-            System.out.println(request.getParameter("apicall"));
-            System.out.println(username);
-            
-            final Part pic = request.getPart("pic");
-            System.out.println(43);
+               System.out.println(username);
+           System.out.println(request.getParameter("apicall"));
+         
+            final Part pic;
+            pic = request.getPart("pic");
             System.out.println(pic);
-            //final Part filePart = request.getPart("file");
+
+            System.out.println(pic);
             System.out.println(47);
-            //  System.out.println(filePart);
             final String fileName = Paths.get(pic.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
             InputStream fileContent = pic.getInputStream();
-            /* TODO output your page here. You may use following sample code. */
+
             System.out.println(pic);
             System.out.println(fileName + "fileName");
             System.out.println(fileContent + "fileContent");
@@ -112,26 +122,28 @@ public class uploadDocument extends HttpServlet {
                 o.write(bytes, 0, read);
             }
             System.out.println("New file " + fileName + " created at " + path);
-                //col1name = concat(col1name, 'a,b,c');
-          //  String query = "update register set document=concat(document, '," + fileName + "') where id='" + id + "' ";
-   String query = "update register set document='" + fileName + "' where id='" + id + "' ";
+
+            query = "update register set document='" + fileName + "' where id='" + id + "' ";
             System.out.println(query);
             int i = st.executeUpdate(query);
             if (i > 0) {
                 request.setAttribute("msg", "Your setings Change Successfully!!");
                 out.println("{\"Error\": \"False\" ,\"Message\": \" Image uploaded Successfully!!\"  }");
-                System.out.println("{\"Error\": \"False\" ,\"Message\": \"Your setings Change Successfully!!\"  }");
+                System.out.println("{\"Error\": \"False\" ,\"Message\": \"Your settings Change Successfully!!\"  }");
             } else {
-                out.println("{\"Error\": \"True\" ,\"Message\": \"Your setings is Invalid!!\"  }");
-                System.out.println("{\"Error\": \"True\" ,\"Message\": \"Your setings is Invalid!!\"  }");
+                out.println("{\"Error\": \"True\" ,\"Message\": \"Your setting is Invalid!!\"  }");
+                System.out.println("{\"Error\": \"True\" ,\"Message\": \"Your settings are Invalid!!\"  }");
                 request.setAttribute("msg", "Your setings is Invalid!!");
 
                 RequestDispatcher rq = request.getRequestDispatcher("message.jsp");
                 rq.forward(request, response);
                 out.println("{\"Error\": \"True\" ,\"Message\": \"Request Failed\"  }");
             }
-        } catch (SQLException ex) {
-            Logger.getLogger(uploadDocument.class.getName()).log(Level.SEVERE, null, ex);
+           // MultipartRequest m = new MultipartRequest(request, "S:\\ramandotest\\" + dbname + "\\" + id);
+           
+           MultipartRequest m = new MultipartRequest(request, "/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
+           
+         
         } catch (Exception ex) {
             Logger.getLogger(uploadDocument.class.getName()).log(Level.SEVERE, null, ex);
         }
