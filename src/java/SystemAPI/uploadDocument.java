@@ -141,7 +141,7 @@ public class uploadDocument extends HttpServlet {
             }
            // MultipartRequest m = new MultipartRequest(request, "S:\\ramandotest\\" + dbname + "\\" + id);
            
-           MultipartRequest m = new MultipartRequest(request, "/opt/apache-tomcat-8.5.33/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
+           MultipartRequest m = new MultipartRequest(request, "/opt/apache-tomcat-9.0.12/webapps/raman/ROOT/web/upload/"+dbname+"/"+id);
            
          
         } catch (Exception ex) {
