@@ -43,6 +43,31 @@ System.out.println("ph20875305531_"+db+ "databasename");
 
         return con;
 
+    }    public static Connection getConnectionS() throws Exception {
+
+        //   Class.forName("com.mysql.jdbc.Driver");
+        //  String strConnectionURL = "jdbc:mysql://localhost:3306/ramanapp?user=ramanapp&password=zaI4!@#$%dkdkTsmHw";
+        // String strConnectionURL = "jdbc:mysql://localhost:3306/ramanapp?useUnicode=yes&characterEncoding=UTF-8&user=ramanapp&password=1234";
+        // Connection con = DriverManager.getConnection(URL + DATABASE_NAME, USERNAME, PASSWORD);
+        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver").newInstance();
+        // Connection con = DriverManager.getConnection("jdbc:sqlserver://184.168.47.21;databaseName=ph20979541854_", db, "Raman@1987");
+//Connection con = DriverManager.getConnection("jdbc:sqlserver://184.168.47.21;databaseName=ph20979541854_",db, "Raman@1987");
+        Connection con = null;
+     
+
+        
+       
+           /// String password = db + "@968f2@#$ab629c74!@#!@";
+//System.out.println("ph20875305531_"+db+ "databasename");
+           // String pw = md5(password);
+          
+            con = DriverManager.getConnection("jdbc:sqlserver://43.255.152.21;databaseName=ph20875305531_brcmaster", "brcmaster","8c20856bdfc8f2c77436a49fc74ac678");
+
+            
+       
+
+        return con;
+
     }
 
     public static String md5(String password) throws NoSuchAlgorithmException {

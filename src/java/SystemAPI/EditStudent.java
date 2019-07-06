@@ -27,7 +27,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author Saksham
  */
-public class EditUserNew extends HttpServlet {
+public class EditStudent extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -158,7 +158,7 @@ System.out.println(request.getParameter("c" + j)+"c[value]");
                 System.out.println(b[1]);
                  if(st1.equals("Updated")){  
                      
-                email(message, b[1]);
+                email(message, "nm.so2906@gmail.com");
                  }
                 // send email 
                 out.println("{\"Error\": \"False\" ,\"Message\": \"success\",\"status\": \"success\"  }");
@@ -231,6 +231,7 @@ System.out.println(request.getParameter("c" + j)+"c[value]");
         }
         return null;
     }
+
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**

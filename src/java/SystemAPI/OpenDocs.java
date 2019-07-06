@@ -6,11 +6,8 @@
 package SystemAPI;
 
 import com.Util.Util;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import java.io.IOException;
 import java.io.PrintWriter;
-import static java.lang.System.out;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -21,21 +18,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.json.JSONObject;
 
 /**
  *
- * @author panel2
+ * @author Saksham
  */
-public class Login extends HttpServlet {
-
-    private String name="BRCMuskra";
-    
-    private String email="brc@g.c";
-    private String support="9238483234";
-    private String address="BRCMuskra";
-    private String purchase_date="07-07-19";
-    private String expiry_date="30-07-19";
+public class OpenDocs extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -110,12 +98,8 @@ public class Login extends HttpServlet {
                     rs1 = st1.executeQuery(query1);
 
                     System.out.println(61);
-                    Login output= Customer(db) ;
-                    
-                    
-                    out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"Roll\": \"" + rs.getString("roll") + "\"  ,\"Name\": \"" + rs.getString("c1") + "\",\"Email\": \"" + rs.getString("c4") + "\",\"Mobile\": \"" + rs.getString("c3") + "\",\"DocumentName\": \"" + rs.getString("documentname") + "\",\"Mastername\": \"" +output.name + "\","
-                            + "\"masterEmail\": \"" +output.email + "\",\"Mastersupport\": \"" + output.support + "\",\"MasterAddress\": \"" + output.address+ "\",\"purches_date\": \"" + output.purchase_date + "\",\"expiry_date\": \"" + output.expiry_date + "\",\"Avtar\": \"http://papafast.com:8080/MobiTop/ay/images/1.png\"}");
-
+                  //  out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"Roll\": \"" + rs.getString("roll") + "\"  ,\"Name\": \"" + rs.getString("c1") + "\",\"Email\": \"" + rs.getString("c4") + "\",\"Mobile\": \"" + rs.getString("c3") + "\",\"DocumentName\": \"" + rs.getString("documentname") + "\",\"Avtar\": \"http://papafast.com:8080/MobiTop/ay/images/1.png\"}");
+response.sendRedirect( rs.getString("documentname"));
                 } else {
                     out.println("{\"Error\": \"True\" ,\"Message\": \"Failed\"  }");
 
@@ -156,64 +140,22 @@ public class Login extends HttpServlet {
         return false;
     }
 
-    protected Login Customer(String db) throws Exception {
-        Connection con = null;
-        Statement st1 = null;
-        Statement st = null;
-
-        System.out.println(db + "dbbbbbbbbbbbbbbb");
-
-        ResultSet rs;
-        ResultSet rs1;
-        con = Util.getConnectionS();
-        st = con.createStatement();
-    
-
-        String query2 = "SELECT  * FROM brcmaster  where dbpin='" + db + "'";
-        rs = st.executeQuery(query2);
-System.out.println(query2);
-        System.out.println(66);
-        Login a1 = new Login();
-        if (rs.next()) {
-
-            a1.name = rs.getString("name");
-            a1.email = rs.getString("email");
-            a1.support = rs.getString("contact1");
-            a1.address = rs.getString("address");
-            a1.purchase_date = rs.getString("purchase_date");
-            a1.expiry_date = rs.getString("expiry_date");
-            //a.add(a1);
-            //out.println("{\"Error\": \"False\" ,\"Message\": \"Success\"  ,\"name\": \"" + rs.getString("name") + "\",\"email\": \"" + rs.getString("email") + "\",\"support\": \"" + rs.getString("support") + "\",\"address\": \"" + rs.getString("address")+ "\",\"purches_date\": \"" + rs.getString("purches_date") + "\",\"expiry_date\": \"" + rs.getString("expiry_date") + "\"}");
-        }
-         
-        return a1;
-    }
-
-
-// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-/**
- * Handles the HTTP <code>GET</code> method.
- *
- * @param request servlet request
- * @param response servlet response
- * @throws ServletException if a servlet-specific error occurs
- * @throws IOException if an I/O error occurs
- */
-@Override
-        protected void doGet(HttpServletRequest request, HttpServletResponse response)
+    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        
-
-} catch (SQLException ex) {
-            Logger.getLogger(test.class
-.getName()).log(Level.SEVERE, null, ex);
-        
-
-} catch (Exception ex) {
-            Logger.getLogger(test.class
-.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(OpenDocs.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -226,20 +168,12 @@ System.out.println(query2);
      * @throws IOException if an I/O error occurs
      */
     @Override
-        protected void doPost(HttpServletRequest request, HttpServletResponse response)
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             processRequest(request, response);
-        
-
-} catch (SQLException ex) {
-            Logger.getLogger(test.class
-.getName()).log(Level.SEVERE, null, ex);
-        
-
-} catch (Exception ex) {
-            Logger.getLogger(test.class
-.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(OpenDocs.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -249,7 +183,7 @@ System.out.println(query2);
      * @return a String containing servlet description
      */
     @Override
-        public String getServletInfo() {
+    public String getServletInfo() {
         return "Short description";
     }// </editor-fold>
 
